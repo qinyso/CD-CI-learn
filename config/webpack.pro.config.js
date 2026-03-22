@@ -25,7 +25,8 @@ module.exports = {
   output: {
     filename: 'bundle.[contenthash:8].js', // 生产模式加哈希防缓存
     path: path.resolve(__dirname, '../dist'),
-    clean: true
+    clean: true,
+    publicPath: './' 
   },
 
   optimization: {

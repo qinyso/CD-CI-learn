@@ -1,0 +1,77 @@
+/* ========== 测试 1：需要自动加前缀的 CSS 属性 ========== */
+/* flex 布局（老浏览器需 -webkit-/-ms- 前缀） */
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* gap 属性部分浏览器需前缀 */
+  width: 100%;
+  height: 200px;
+  background: #f5f5f5;
+}
+
+/* 过渡/变换（webkit 内核需前缀） */
+.animate-box {
+  width: 100px;
+  height: 100px;
+  background: #42b983;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+  user-select: none; /* 禁止选中文本，多浏览器需前缀 */
+}
+.animate-box:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ========== 测试 2：CSS 原生嵌套（需降级为普通选择器） ========== */
+.card {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+  /* 嵌套子元素 */
+  & .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* 嵌套伪类 */
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  /* 多层嵌套 */
+  & .card-content {
+    font-size: 14px;
+    color: #666;
+    
+    & .highlight {
+      color: #42b983;
+      font-weight: bold;
+    }
+  }
+}
+
+/* ========== 测试 3：CSS 新特性（postcss-preset-env 降级） ========== */
+/* :is() 选择器（需降级为多选择器） */
+:is(.btn-primary, .btn-secondary) {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-primary { background: #42b983; color: white; }
+.btn-secondary { background: #eee; color: #333; }
+
+/* CSS 变量（自动兼容，无需额外降级但可验证） */
+:root {
+  --main-color: #42b983;
+  --border-radius: 6px;
+}
+.variable-test {
+  border: 1px solid var(--main-color);
+  border-radius: var(--border-radius);
+  padding: 10px;
+}
